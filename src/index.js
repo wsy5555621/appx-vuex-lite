@@ -136,7 +136,10 @@ export function connect(options) {
                 p[v] = data[v];
                 return p;
               }, {});
-              this.setData(outterState);
+              // 挂载的组件才可以设置
+              if (!this.unloaded) {
+                this.setData(outterState);
+              }
             } else {
               const outterState = Object.keys(mapStateToProps).reduce((p, v) => {
                 if (isString(mapStateToProps[v])) {
@@ -146,7 +149,10 @@ export function connect(options) {
                 }
                 return p;
               }, {});
-              this.setData(outterState);
+              // 挂载的组件才可以设置
+              if (!this.unloaded) {
+                this.setData(outterState);
+              }
             }
           });
         }
